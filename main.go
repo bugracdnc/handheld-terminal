@@ -6,7 +6,6 @@ import (
 	"os/exec"
 
 	"github.com/fatih/color"
-	"golang.org/x/term"
 )
 
 func main() {
@@ -38,14 +37,13 @@ func main() {
 	fggr.Println("SEÇİM:")
 	fggr.Println("________________")
 
-	fggr.Println()
+	fggr.Print("\033[2ASEÇİM: ")
 
-	oldState, err := term.MakeRaw(int(os.Stdin.Fd()))
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	var b []byte
+	exec.Command("stty", "-F", "/dev/tty", "cbreak", "min", "1").Run()
+
+	var b []byte = make([]byte, 1)
 	os.Stdin.Read(b)
-	defer term.Restore(int(os.Stdin.Fd()), oldState)
+
+	fmt.Println()
+	fmt.Println()
 }
