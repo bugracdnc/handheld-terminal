@@ -1,6 +1,6 @@
 module handheld-terminal
 
-go 1.23.2
+go 1.22.0
 
 require (
 	github.com/fatih/color v1.17.0 // indirect

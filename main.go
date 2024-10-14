@@ -2,13 +2,14 @@ package main
 
 import (
 	"fmt"
-
+	"os"
+	"github.com/x/term"
 	"github.com/fatih/color"
 )
 
 func main() {
 	fggr := color.New(color.FgGreen)
-	bggr := color.New(color.BgGreen)
+	bggr := color.New(color.BgGreen, color.FgBlack)
 
 	bggr.Println("LOJISTIK BIRSEYLER")
 
@@ -30,4 +31,11 @@ func main() {
 	fggr.Println("________________")
 
 	fggr.Println()
+
+	oldState, err := term.MakeRaw(int(os.Stdin.Fd()))
+ if err != nil {
+        fmt.Println(err)
+        return
+    }
+    defer term.Restore(int(os.Stdin.Fd()), oldState)
 }
