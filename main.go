@@ -3,11 +3,17 @@ package main
 import (
 	"fmt"
 	"os"
-	"github.com/x/term"
+	"os/exec"
+
 	"github.com/fatih/color"
+	"golang.org/x/term"
 )
 
 func main() {
+	//Clear the screen
+	exec.Command("clear").Run()
+
+	//Define colors
 	fggr := color.New(color.FgGreen)
 	bggr := color.New(color.BgGreen, color.FgBlack)
 
@@ -33,9 +39,11 @@ func main() {
 	fggr.Println()
 
 	oldState, err := term.MakeRaw(int(os.Stdin.Fd()))
- if err != nil {
-        fmt.Println(err)
-        return
-    }
-    defer term.Restore(int(os.Stdin.Fd()), oldState)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	var b []byte
+	os.Stdin.Read(b)
+	defer term.Restore(int(os.Stdin.Fd()), oldState)
 }
