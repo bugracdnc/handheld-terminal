@@ -11,7 +11,9 @@ import (
 
 func main() {
 	//Clear the screen
-	exec.Command("clear").Run()
+	cmd := exec.Command("clear")
+	cmd.Stdout = os.Stdout
+	cmd.Run()
 
 	//Define colors
 	fggr := color.New(color.FgGreen)
